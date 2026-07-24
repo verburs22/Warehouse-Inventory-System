@@ -3,8 +3,8 @@ public class PerishableItem extends InventoryItem {
     private int daysToExpiration;
     private int shippingTime;
 
-    public PerishableItem(String name, int quantity, String sku, int daysToExpiration,  int shippingTime) {
-        super(name, quantity, sku);
+    public PerishableItem(String name, int quantity, String sku,int reorderThreshold, int daysToExpiration,  int shippingTime) {
+        super(name, quantity, sku, reorderThreshold);
         this.daysToExpiration = daysToExpiration;
         this.shippingTime = shippingTime;
     }
@@ -13,6 +13,9 @@ public class PerishableItem extends InventoryItem {
     @Override
     public int daysUntilReorder() {
         int reorder = daysToExpiration - shippingTime;
+        if (quantity <= reorderThreshold){
+            return 0; // if stock is below threshold then 0 - order more
+        }
         return (reorder > 0) ? reorder : 0;
 
         // if reorder is negative, 0 is returned. can add 'overdue' method to alert for

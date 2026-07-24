@@ -1,14 +1,16 @@
 public abstract class InventoryItem {
     //fields
     private String name;
-    private int quantity;
+    protected int quantity;
     private String sku;
+    protected int reorderThreshold;
 
     // constructor
-    public InventoryItem(String name, int quantity, String sku) {
+    public InventoryItem(String name, int quantity, String sku,  int reorderThreshold) {
         this.name = name;
         this.quantity = quantity;
         this.sku = sku;
+        this.reorderThreshold = reorderThreshold;
     }
 
     // methods
@@ -29,5 +31,9 @@ public abstract class InventoryItem {
 
     public String getSku() {
         return sku;
+    }
+
+    public int getReorderThreshold() {
+        return reorderThreshold;
     }
 }
